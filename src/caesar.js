@@ -4,7 +4,6 @@
 // of the anonymous function on line 6
 
 const caesarModule = (function () {
-  const alphabetTimesThree = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
   function caesar(input, shift, encode = true) {
     if (shift === 0 || shift < -25 || shift > 25 || shift === undefined) {
       return false
@@ -15,12 +14,38 @@ const caesarModule = (function () {
     for (let i = 0; i < input.length; i++) {
       message.push(input.slice(i, i + 1))
     }
-    console.log(message)
     const shiftMessage = message.filter((messageShift,index) => {
-      for (let i = 26; i < 52; i++) {
-        if (messageShift.toLowerCase() === alphabetTimesThree[i]) {
-          caesarShift.push(alphabetTimesThree[i + shift])
+      if (messageShift.charCodeAt() >= 65 && messageShift.charCodeAt() <= 90) {
+        if (messageShift.charCodeAt() + shift >= 65 && messageShift.charCodeAt() + shift <= 90) {
+          console.log("Upper Case")
+          caesarShift.push(String.fromCharCode((messageShift.charCodeAt() + shift)).toLowerCase())
         }
+        else if (messageShift.charCodeAt() + shift > 90){
+          console.log("Upper Case - Shift Exceeds Alphabet")
+          caesarShift.push(String.fromCharCode((messageShift.charCodeAt() + shift - 26)).toLowerCase())
+        }
+        else {
+          console.log("Upper Case - Shift Less Than Alphabet")
+          caesarShift.push(String.fromCharCode((messageShift.charCodeAt() + shift + 26)).toLowerCase())
+        }
+      }
+      else if (messageShift.charCodeAt() >= 97 && messageShift.charCodeAt() <= 122) {
+        if (messageShift.charCodeAt() + shift >= 97 && messageShift.charCodeAt() + shift <= 122) {
+          console.log("Lower Case")
+          caesarShift.push(String.fromCharCode((messageShift.charCodeAt() + shift)))
+        }
+        else if (messageShift.charCodeAt() + shift > 122) {
+          console.log("Lower Case - Shift Exceeds Alphabet")
+          caesarShift.push(String.fromCharCode((messageShift.charCodeAt() + shift - 26)))
+        }
+        else {
+          console.log("Lower Case - Shift Less Than Alphabet")
+          caesarShift.push(String.fromCharCode((messageShift.charCodeAt() + shift + 26)))
+        }
+      }
+      else {
+        console.log("Special Character")
+        caesarShift.push(messageShift)
       }
       caesarMessage += caesarShift[index]
     })
