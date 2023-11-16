@@ -3,13 +3,13 @@ const { substitution } = require("../src/substitution");
 describe("substitution(), my written test cases" , () => {
     it("should allow for input to include letters, special characters, and spaces", () => {
         const expected = "b acgd"
-        const actual = substitution("a ^B!c", "^abcde!fghijklmnopqrstuvwxy", false)
-        expect(acutal).to.equal(expected)
+        const actual = substitution("a ^B!c", "^abcde!fghijklmnopqrstuvwx", false)
+        expect(actual).to.equal(expected)
     })
     it("should maintain spaces throughout", () => {
         const expected = "  z  y    x"
         const actual = substitution("  a  b    c", "zyxwvutsrqponmlkjihgfedcba")
-        expect(acutal).to.equal(expected)
+        expect(actual).to.equal(expected)
     })
     it("should return false if alphabet parameters is less than or greater than 26 characters", () => {
         const expected = false
