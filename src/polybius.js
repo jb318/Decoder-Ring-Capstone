@@ -12,6 +12,7 @@ const polybiusModule = (function () {
  function isOdd(n) {
     return Math.abs(n % 2) == 1;
  }
+//  Note, the helper functions above were retreived on November 15th, 2023 from user Steve Mayne on StackoverFlow url: https://stackoverflow.com/posts/6211660/revisions
   function polybius(input, encode = true) {
     // create a rule that assigns each letter in the alphabet to a cipher (i & j are both 42)
     const cipherColumns = [{number: 1, letters: ["a","f","l","q","v"]},{number: 2, letters: ["b","g","m","r","w"]},{number: 3, letters:["c","h","n","s","x"]},{number: 4, letters: ["d","(i/j)","o","t","y"]},{number: 5, letters: ["e","k","p","u","z"]}]
@@ -30,11 +31,13 @@ const polybiusModule = (function () {
         cipherMessageLength += 1
       }
     }
+    // check if encoded input has even length.  If not, return false
     if (isOdd(cipherMessageLength)) {
       return false
     }
+    // Loop through each element in the newly created inputArray and assign the appropriate encode or decode value of each index to ciperMessage
     const inputLoop = inputArray.filter((cipher, index) => {
-      console.log(cipher)
+      // if the function is called and encode is true, encode a string of alphabetical characters
       if (encode === true) {
         if (cipher.toLowerCase().charCodeAt() < 97 || cipher.toLowerCase().charCodeAt() > 122) {
           cipherMessage += cipher
@@ -51,7 +54,9 @@ const polybiusModule = (function () {
           }
         }
       }
+      // Otherwise, if the function is called with encode set to false, decode a set of numbers to their respective non-numeric counterparts
       else {
+        // Track each pair of numbers
         if (cipher.charCodeAt() < 48 || cipher.charCodeAt() > 57) {
           cipherMessage += cipher
           twoCharacterChecker = 0
@@ -71,6 +76,7 @@ const polybiusModule = (function () {
               }
           }
           }
+          // Once two numbers have been recorded, add the character that associates with the two numbers and then reset number count
           twoCharacterChecker += 1
           if (twoCharacterChecker === 2) {
             cipherMessage += cipherColumns[firstNumber].letters[secondNumber]
