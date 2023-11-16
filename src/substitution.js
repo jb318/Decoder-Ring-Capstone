@@ -7,7 +7,19 @@ const substitutionModule = (function () {
   // you can add any code you want within this function scope
 
   function substitution(input, alphabet, encode = true) {
-    // your solution code here
+    // check if alphabet has exactly 26 characters
+    if (alphabet.length != 26) {
+      return false
+    }
+    const substitutionMessage = ""
+    const alphabetArray = []
+    // check if there are any repeats in the alphabet
+    for(let i = 0; i < alphabet.length; i++) {
+      if(alphabetArray.includes(alphabet[i])) {
+        return false
+      }
+      alphabetArray.push(alphabet[i])
+    }
   }
 
   return {
